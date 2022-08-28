@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const config = {
-    authSecret: 'mysecret',
+    authSecret: 'u!&0Ud5r6h17z@*1^aUFo8J^vNmbSQv!',
 }
 
 module.exports = config
@@ -22,7 +22,7 @@ module.exports.isAuthenticated = function (req, res, next) {
     } else {
 
         return res.status(401).json({ message: 'unauthorized' })
-        
+
     }
 
 }
