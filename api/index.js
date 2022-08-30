@@ -3,9 +3,8 @@ const db = require('./db')
 
 const app = express()
 
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // Require & Import API routes
 
@@ -15,6 +14,6 @@ const users = require('./routes/users')
 app.use(users)
 
 module.exports = {
-    path: '/api',
-    handler: app
+  path: '/api',
+  handler: app
 }

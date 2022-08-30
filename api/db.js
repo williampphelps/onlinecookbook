@@ -1,21 +1,19 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize')
 const sequelize = new Sequelize(
-    'cookbook',
-    'root',
-    'root',
-    {
-        host: 'localhost',
-        dialect: 'mysql'
-    }
-);
+  'cookbook',
+  'root',
+  'root',
+  {
+    host: 'localhost',
+    dialect: 'mysql'
+  }
+)
 
 sequelize.authenticate().then(() => {
-    console.log('MYSQL connection established successfully.')
+  console.log('MYSQL connection established successfully.')
 }).catch((error) => {
-    console.error('Unable to connect to the database: ', error);
-});
-
-
+  console.error('Unable to connect to the database: ', error)
+})
 
 module.exports = sequelize
 /*
@@ -30,7 +28,6 @@ const con = mysql.createConnection({
     password: 'root',
     database: 'cookbook'
 });
-
 
 con.connect(function(err) {
     if (err) {
