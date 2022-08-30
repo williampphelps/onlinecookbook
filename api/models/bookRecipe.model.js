@@ -3,11 +3,11 @@ const db = require('../db')
 
 const BookRecipe = db.define('bookRecipes', {
   book_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   recipe_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false
   }
 })
