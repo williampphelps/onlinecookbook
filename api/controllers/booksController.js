@@ -27,8 +27,9 @@ module.exports.create = [
         if (err) {
           return res.status(401).json({ message: 'unauthorized' })
         } else {
+          let userID = decoded._id
           db.sync().then(() => {
-            Book.create({ name: req.body.name, author: userID }).then((result) => {
+            Book.create({ name: req.body.name, author: req.body.author, user_id: userID }).then((result) => {
               return res.status(201).json({ result })
             }).catch((error) => {
               console.error('Failed to create data: ', error)
@@ -50,7 +51,10 @@ module.exports.getById = [
   function (req, res) {
     let BookId = req.params.id;
     db.sync().then(() => {
-      Book.findOne({ id: bookId }).then((result) => {
+      Book.findByPk(BookId).then((result) => {
+        if (!result) {
+          return res.status(404).json({ error: 'NOT FOUND'})
+        }
         return res.status(200).json({ result })
       }).catch((error) => {
         return res.status(500).json({ error: error })
@@ -65,8 +69,8 @@ module.exports.updateById = [
   function (req, res) {
     let BookId = req.params.id;
     db.sync().then(() => {
-      Book.update({ name: req.body.name }, { where: { id: BookId } }).then((result) => {
-        return res.status(200).json({ result })
+      Book.update({ name: req.body.name, author: req.body.author }, { where: { id: BookId }}).then((result) => {
+        return res.status(200).json({ data: result })
       }).catch((error) => {
         return res.status(500).json({ error: error })
       })
@@ -80,13 +84,13 @@ module.exports.deleteById = [
   function (req, res) {
     let BookId = req.params.id;
     db.sync().then(() => {
-      Book.destroy({ where: { id: bookId } }).then((result) => {
+      Book.destroy({ where: { id: BookId } }).then((result) => {
         return res.status(204).json({ result })
       }).catch((error) => {
-        return res.status(500).json({ error: error })
+        return res.status(500).json({ error: error, location: 'Book.destroy catch' })
       })
     }).catch((error) => {
-      return res.status(500).json({ error: error })
+      return res.status(500).json({ error: error, location: 'Db.sync catch' })
     })
   }
 ]
