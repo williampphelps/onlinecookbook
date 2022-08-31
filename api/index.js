@@ -10,8 +10,10 @@ app.use(express.urlencoded({ extended: true }))
 
 // import users API
 const users = require('./routes/users')
+const books = require('./routes/books')
 
 app.use(users)
+app.use(books)
 
 module.exports = {
   path: '/api',
